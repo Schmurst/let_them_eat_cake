@@ -1,10 +1,23 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AIOvermind : MonoBehaviour
+public class AIOvermind : MonoEditorDebug
 {
     [SerializeField] private ai ai_prefab;
+
+    [SerializeField] private List<GameObject> spawn_locations;
+    [SerializeField] private Transform alive_tr;
+    [SerializeField] private Transform dead_tr;
+
+    [Serializable]
+    public class Balance
+    {
+        public float speed = 4f;
+    }
+
+    public Balance balance;
 
     private bool isActive = false;
     // Start is called before the first frame update
@@ -21,6 +34,7 @@ public class AIOvermind : MonoBehaviour
     {
         
     }
+
     void OnCountdown()
     {
         isActive = false;
@@ -28,7 +42,18 @@ public class AIOvermind : MonoBehaviour
     void OnBattle()
     {
         isActive = true;
+
+        SpawnAI(spawn_locations[0].transform.position);
     }
+
+    [EditorDebugMethod]
+    void SpawnAI(Vector3 position)
+    {
+        var ai = GameObject.Instantiate(ai_prefab);
+        ai.transform.SetParent(alive_tr);
+        ai.transform.position = position;
+    }
+
     void OnDefeat()
     {
         isActive = false;
