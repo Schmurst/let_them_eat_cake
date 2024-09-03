@@ -7,7 +7,6 @@ public class character : MonoBehaviour
 {
     CharacterController controller;
 
-
     void Start()
     {
         controller = GetComponent<CharacterController>();

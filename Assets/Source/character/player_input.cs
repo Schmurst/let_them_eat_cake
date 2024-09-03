@@ -77,7 +77,6 @@ public class player_input : MonoEditorDebug
     {
         isActive = true;
     }
-
     void OnDefeat()
     {
         isActive = false;
