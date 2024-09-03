@@ -68,7 +68,7 @@ public class player_input : MonoEditorDebug
 
             float frame_movement = speed * Time.deltaTime;
 
-            controller.Move(new Vector3(x_axis, y_axis, 0) * frame_movement );
+            controller.Move(new Vector3(x_axis,0f , y_axis) * frame_movement );
         }
     }
     void OnCountdown()
