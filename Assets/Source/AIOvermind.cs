@@ -2,12 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class AIOvermind : MonoEditorDebug
 {
     [SerializeField] private ai ai_prefab;
 
-    [SerializeField] private List<GameObject> spawn_locations;
     [SerializeField] private Transform alive_tr;
     [SerializeField] private Transform dead_tr;
 
@@ -103,8 +103,9 @@ public class AIOvermind : MonoEditorDebug
     ai SpawnAI(Vector3 position)
     {
         var ai = GameObject.Instantiate(ai_prefab);
-        ai.transform.SetParent(alive_tr);
+        ai.transform.SetParent(alive_tr, true);
         ai.transform.position = position;
+        var _char = ai.GetComponent<CharacterController>();
 
         return ai;
     }

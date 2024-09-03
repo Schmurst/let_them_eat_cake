@@ -131,6 +131,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   starting_hp: 1
+  recoil_time: 1
+  death_time: 1
 --- !u!114 &6437778393073164538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,7 +207,7 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
+  m_Height: 1.6
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3

@@ -130,6 +130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 435c1f0b64b97ac4780218e87130562a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  starting_hp: 1
+  recoil_time: 1
+  death_time: 1
 --- !u!143 &8237464246403377532
 CharacterController:
   m_ObjectHideFlags: 0
@@ -149,11 +152,11 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
+  m_Height: 1.6
   m_Radius: 0.5
   m_SlopeLimit: 45
   m_StepOffset: 0.3
-  m_SkinWidth: 0.08
+  m_SkinWidth: 0.1
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &8353640866764716647

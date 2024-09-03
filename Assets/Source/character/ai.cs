@@ -11,6 +11,7 @@ public class ai : MonoBehaviour
     private bool isActive = false;
 
     private float deathTime = 0f;
+    private float spawn_cooldown = 0.1f;
     void Start()
     {
         var flow = FindFirstObjectByType<battle_flow>();
@@ -23,28 +24,41 @@ public class ai : MonoBehaviour
         mind = FindFirstObjectByType<AIOvermind>();
 
         _character.OnStateChange += OnStateChange;
+
+        controller.enabled = false;
     }
 
     void Update()
     {
+        if (spawn_cooldown > 0f)
+        {
+            spawn_cooldown -= Time.deltaTime;
+            if (spawn_cooldown < 0f)
+            {
+                controller.enabled = true;
+            }
+        }
+
         switch (_character.State)
         {
             case CharState.moving:
                 //find players
                 var target = GetClosestPlayer(out var dist_to_target, out Vector3 to_target);
-
-                //calculate velocity
-                Vector3 movement_vec = Vector3.Normalize(to_target);
-
-                Vector3 velocity = movement_vec * mind.balance.speed * Time.deltaTime;
-
-                if (_character.IsMovementAllowed)
-                    controller.Move(velocity);
-
-                //attack check
-                if (dist_to_target < mind.balance.attack_distance)
+                if (target)
                 {
-                    _character.StartAttack(mind.balance.attack, to_target);
+                    //calculate velocity
+                    Vector3 movement_vec = Vector3.Normalize(to_target);
+
+                    Vector3 velocity = movement_vec * mind.balance.speed * Time.deltaTime;
+
+                    if (_character.IsMovementAllowed)
+                        controller.SimpleMove(velocity / Time.deltaTime);
+
+                    //attack check
+                    if (dist_to_target < mind.balance.attack_distance)
+                    {
+                        _character.StartAttack(mind.balance.attack, to_target);
+                    }
                 }
                 break;
             case CharState.attacking:
