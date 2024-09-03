@@ -185,7 +185,7 @@ MonoBehaviour:
     speed: 3
     attack_distance: 1.5
     attack:
-      duration: 1
+      duration: 2
       curve:
         serializedVersion: 2
         m_Curve:
@@ -222,10 +222,10 @@ MonoBehaviour:
       movement_mult: 6
       damage: 1
       hitEnemies: 0
-      ticks: 3
-      arc_degrees: 120
+      ticks: 1
+      arc_degrees: 90
       arc_radius: 2
-    death_time: 2
+    death_time: 1
 --- !u!1 &5914141078656286588
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,7 +285,7 @@ Transform:
   m_GameObject: {fileID: 9056159081567317631}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.82, y: 1.2, z: 13.83}
+  m_LocalPosition: {x: 0.82, y: 3, z: 13.83}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

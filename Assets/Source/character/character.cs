@@ -18,7 +18,6 @@ public class Attack
     public float arc_degrees = 120f;
     public float arc_radius = 2f;
 }
-
 public enum CharState
 {
     moving,
@@ -27,7 +26,7 @@ public enum CharState
     dying,
 }
 
-public class character : MonoBehaviour
+public class character : MonoEditorDebug
 {
     [SerializeField] private int starting_hp = 1;
     [SerializeField] private float recoil_time = 1f;
@@ -45,8 +44,9 @@ public class character : MonoBehaviour
 
     private List<character> chars_hit_by_attack = new List<character>();
 
-    public bool IsMovementAllowed => state == CharState.moving;
-    public CharState State => state;
+    [ExposeInInspector("HP:")] public int HP => hp;
+    [ExposeInInspector("can move:")] public bool IsMovementAllowed => state == CharState.moving;
+    [ExposeInInspector("state:")] public CharState State => state;
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -85,7 +85,7 @@ public class character : MonoBehaviour
     void DoDamage(int damage)
     {
         hp -= damage;
-        if (hp < 0)
+        if (hp <= 0)
         {
             EnterState(CharState.dying);
         }
@@ -120,6 +120,8 @@ public class character : MonoBehaviour
 
                 foreach (var target in potentials)
                 {
+                    if (target == this)
+                        continue;
                     if (chars_hit_by_attack.Contains(target))
                         continue;
                     if (currentAttack.hitEnemies && target.GetComponent<ai>() == null)
@@ -133,10 +135,10 @@ public class character : MonoBehaviour
                     if (dist > currentAttack.arc_radius)
                         continue;
 
-                    float dot = Vector3.Dot(transform.forward, Vector3.Normalize(to_target));
-                    if (dot > Mathf.Cos(Mathf.Deg2Rad * currentAttack.arc_radius))
+                    float dot = Vector3.Dot(attack_direction, Vector3.Normalize(to_target));
+                    if (dot > Mathf.Cos(Mathf.Deg2Rad * currentAttack.arc_degrees))
                     {
-                        DoDamage(currentAttack.damage);
+                        target.DoDamage(currentAttack.damage);
                         chars_hit_by_attack.Add(target);
                     }
                 }

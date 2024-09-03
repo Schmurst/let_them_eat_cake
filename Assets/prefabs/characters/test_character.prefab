@@ -130,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 435c1f0b64b97ac4780218e87130562a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starting_hp: 1
+  starting_hp: 3
   recoil_time: 1
   death_time: 1
 --- !u!114 &6437778393073164538
@@ -187,7 +187,7 @@ MonoBehaviour:
     hitEnemies: 1
     ticks: 3
     arc_degrees: 120
-    arc_radius: 2
+    arc_radius: 4
 --- !u!143 &8237464246403377532
 CharacterController:
   m_ObjectHideFlags: 0

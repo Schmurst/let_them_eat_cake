@@ -26,7 +26,7 @@ public class player_input : MonoEditorDebug
     private bool isActive = false;
     private string stick_input_x;
     private string stick_input_y;
-    [ExposeInInspector] bool IsActive => isActive;
+    [ExposeInInspector("Is active: ")] bool IsActive => isActive;
 
 
     void Start()
