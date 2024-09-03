@@ -7,10 +7,10 @@ public class ai : MonoBehaviour
 {
     private AIOvermind mind;
     CharacterController controller;
-    private character character;
+    private character _character;
     private bool isActive = false;
 
-
+    private float deathTime = 0f;
     void Start()
     {
         var flow = FindFirstObjectByType<battle_flow>();
@@ -18,30 +18,46 @@ public class ai : MonoBehaviour
         flow.OnBattle += OnBattle;
         flow.OnDefeat += OnDefeat;
 
-        character = GetComponent<character>();
+        _character = GetComponent<character>();
         controller = GetComponent<CharacterController>();
         mind = FindFirstObjectByType<AIOvermind>();
 
-        character.OnStateChange += OnStateChange;
+        _character.OnStateChange += OnStateChange;
     }
 
     void Update()
     {
-        //find players
-        var target = GetClosestPlayer(out var dist_to_target, out Vector3 to_target);
-
-        //calculate velocity
-        Vector3 movement_vec = Vector3.Normalize(to_target);
-
-        Vector3 velocity = movement_vec * mind.balance.speed * Time.deltaTime;
-
-        if (character.IsMovementAllowed)
-            controller.Move(velocity);
-
-        //attack check
-        if (dist_to_target < mind.balance.attack_distance)
+        switch (_character.State)
         {
-            character.StartAttack(mind.balance.attack, to_target);
+            case CharState.moving:
+                //find players
+                var target = GetClosestPlayer(out var dist_to_target, out Vector3 to_target);
+
+                //calculate velocity
+                Vector3 movement_vec = Vector3.Normalize(to_target);
+
+                Vector3 velocity = movement_vec * mind.balance.speed * Time.deltaTime;
+
+                if (_character.IsMovementAllowed)
+                    controller.Move(velocity);
+
+                //attack check
+                if (dist_to_target < mind.balance.attack_distance)
+                {
+                    _character.StartAttack(mind.balance.attack, to_target);
+                }
+                break;
+            case CharState.attacking:
+                break;
+            case CharState.recoiling:
+
+                break;
+            case CharState.dying:
+                deathTime += Time.deltaTime;
+
+                if (deathTime > mind.balance.death_time) 
+                    mind.Kill(this);
+                break;
         }
     }
 

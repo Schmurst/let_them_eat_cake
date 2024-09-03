@@ -24,12 +24,14 @@ public enum CharState
     moving,
     attacking,
     recoiling,
-    dying
+    dying,
 }
 
 public class character : MonoBehaviour
 {
     [SerializeField] private int starting_hp = 1;
+    [SerializeField] private float recoil_time = 1f;
+    [SerializeField] private float death_time = 1f;
 
     public event Action<CharState> OnStateChange;
 
@@ -66,8 +68,16 @@ public class character : MonoBehaviour
 
                 break;
             case CharState.recoiling:
+
+                if (stateTime > recoil_time)
+                    EnterState(CharState.moving);
+
                 break;
             case CharState.dying:
+                if (stateTime > death_time)
+                {
+
+                }
                 break;
         }
     }
