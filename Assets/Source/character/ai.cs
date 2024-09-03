@@ -28,9 +28,28 @@ public class ai : MonoBehaviour
     void Update()
     {
         //find players
+        var target = GetClosestPlayer(out var dist_to_target, out Vector3 to_target);
+
+        //calculate velocity
+        Vector3 movement_vec = Vector3.Normalize(to_target);
+
+        Vector3 velocity = movement_vec * mind.balance.speed * Time.deltaTime;
+
+        if (character.IsMovementAllowed)
+            controller.Move(velocity);
+
+        //attack check
+        if (dist_to_target < mind.balance.attack_distance)
+        {
+            character.EnterState(CharState.attacking);
+        }
+    }
+
+    private player_input GetClosestPlayer(out float dist_to_target, out Vector3 to_target)
+    {
         var players = FindObjectsByType<player_input>(FindObjectsSortMode.None);
         player_input target = null;
-        float dist_to_target = float.MaxValue;
+        dist_to_target = float.MaxValue;
         Vector3 our_pos = transform.position;
         //get closest 
         foreach (var p in players)
@@ -43,18 +62,8 @@ public class ai : MonoBehaviour
             }
         }
 
-        //calculate velocity
-        Vector3 to_target = target.transform.position - our_pos;
-        Vector3 movement_vec = Vector3.Normalize(to_target);
-
-        Vector3 velocity = movement_vec * mind.balance.speed * Time.deltaTime;
-        controller.Move(velocity);
-
-        //attack check
-        if (dist_to_target < mind.balance.attack_dist)
-        {
-            character.EnterState(CharState.attacking);
-        }
+        to_target = target.transform.position - transform.position;
+        return target;
     }
 
     void OnStateChange(CharState state)
@@ -65,12 +74,8 @@ public class ai : MonoBehaviour
                 break;
             case CharState.attacking:
             {
-                // send move info
-                
-                // damage check
-
-                // 
-
+                var target = GetClosestPlayer(out var dist_to_target, out Vector3 to_target);
+                character.StartAttack(mind.balance.attack, to_target );
                 break;
             }
             case CharState.recoiling:

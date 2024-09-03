@@ -802,6 +802,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4990954405425727147, guid: 8a372d2d89bb49f4ab42e9bd069a619c, type: 3}
+      propertyPath: balance.attack_distance
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4990954405425727147, guid: 8a372d2d89bb49f4ab42e9bd069a619c, type: 3}
+      propertyPath: balance.attack.hitEnemies
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4990954405425727147, guid: 8a372d2d89bb49f4ab42e9bd069a619c, type: 3}
+      propertyPath: balance.attack.curve.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4990954405425727147, guid: 8a372d2d89bb49f4ab42e9bd069a619c, type: 3}
+      propertyPath: balance.attack.curve.m_Curve.Array.data[1].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4990954405425727147, guid: 8a372d2d89bb49f4ab42e9bd069a619c, type: 3}
+      propertyPath: balance.attack.curve.m_Curve.Array.data[1].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4990954405425727147, guid: 8a372d2d89bb49f4ab42e9bd069a619c, type: 3}
+      propertyPath: balance.attack.curve.m_Curve.Array.data[1].inSlope
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4990954405425727147, guid: 8a372d2d89bb49f4ab42e9bd069a619c, type: 3}
+      propertyPath: balance.attack.curve.m_Curve.Array.data[1].outSlope
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5878787578371853592, guid: 8a372d2d89bb49f4ab42e9bd069a619c, type: 3}
       propertyPath: m_Name
       value: AI_MIND

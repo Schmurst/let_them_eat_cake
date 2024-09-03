@@ -28,19 +28,26 @@ public enum CharState
 
 public class character : MonoBehaviour
 {
+    [SerializeField] private int starting_hp = 1;
+
     public event Action<CharState> OnStateChange;
 
-    CharacterController controller;
+    Vector3 attack_direction = Vector3.back;
 
+    CharacterController controller;
+    private int hp = 0;
     Attack currentAttack = null;
     CharState state = CharState.moving;
     private float stateTime = 0f;
+
+    private List<character> chars_hit_by_attack = new List<character>();
 
     public bool IsMovementAllowed => state == CharState.moving;
     public CharState State => state;
     void Start()
     {
         controller = GetComponent<CharacterController>();
+        hp = starting_hp;
     }
 
     void Update()
@@ -54,7 +61,7 @@ public class character : MonoBehaviour
                 ProcessAttack();
 
                 if (currentAttack == null)
-                    EnterState(state);
+                    EnterState(CharState.moving);
 
                 break;
             case CharState.recoiling:
@@ -63,6 +70,16 @@ public class character : MonoBehaviour
                 break;
         }
     }
+
+    void DoDamage(int damage)
+    {
+        hp -= damage;
+        if (hp < 0)
+        {
+            EnterState(CharState.dying);
+        }
+    }
+
     void ProcessAttack()
     {
         //end it
@@ -71,6 +88,13 @@ public class character : MonoBehaviour
             currentAttack = null;
             return;
         }
+
+        //movement
+        float progress = stateTime / currentAttack.duration;
+        float speed = currentAttack.curve.Evaluate(progress);
+
+        Vector3 move = attack_direction * Time.deltaTime * speed;
+        controller.Move(move);
 
         //did we just tick?
         float tick_length = currentAttack.duration / currentAttack.ticks;
@@ -85,6 +109,8 @@ public class character : MonoBehaviour
 
                 foreach (var target in potentials)
                 {
+                    if (chars_hit_by_attack.Contains(target))
+                        continue;
                     if (currentAttack.hitEnemies && target.GetComponent<ai>() == null)
                         continue;
                     if (!currentAttack.hitEnemies && target.GetComponent<player_input>() == null)
@@ -99,16 +125,19 @@ public class character : MonoBehaviour
                     float dot = Vector3.Dot(transform.forward, Vector3.Normalize(to_target));
                     if (dot > Mathf.Cos(Mathf.Deg2Rad * currentAttack.arc_radius))
                     {
-                        
+                        DoDamage(currentAttack.damage);
+                        chars_hit_by_attack.Add(target);
                     }
                 }
             }
         }
     }
 
-    public void StartAttack(Attack _attack)
+    public void StartAttack(Attack _attack, Vector3 direction)
     {
         currentAttack = _attack;
+        chars_hit_by_attack.Clear();
+        attack_direction = Vector3.Normalize(direction);
     }
 
     public bool EnterState(CharState _state)

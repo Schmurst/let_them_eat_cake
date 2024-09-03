@@ -114,6 +114,40 @@ MonoBehaviour:
   - {fileID: 9056159081567317631}
   alive_tr: {fileID: 1155790254616476450}
   dead_tr: {fileID: 521896066685988294}
+  balance:
+    speed: 3.5
+    attack_distance: 1.5
+    attack:
+      duration: 1
+      curve:
+        serializedVersion: 2
+        m_Curve:
+        - serializedVersion: 3
+          time: 0
+          value: 0
+          inSlope: 0
+          outSlope: 0
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        - serializedVersion: 3
+          time: 1
+          value: 1
+          inSlope: 2
+          outSlope: 2
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0
+          outWeight: 0
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      damage: 1
+      hitEnemies: 0
+      ticks: 3
+      arc_degrees: 120
+      arc_radius: 2
 --- !u!1 &5914141078656286588
 GameObject:
   m_ObjectHideFlags: 0
