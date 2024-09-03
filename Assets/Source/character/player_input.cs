@@ -64,8 +64,6 @@ public class player_input : MonoEditorDebug
             float x_axis = Input.GetAxis(stick_input_x);
             float y_axis = Input.GetAxis(stick_input_y);
 
-            Debug.Log("X" + x_axis.ToString() + " Y" + y_axis.ToString());
-
             float frame_movement = speed * Time.deltaTime;
 
             controller.Move(new Vector3(x_axis,0f , y_axis) * frame_movement );
