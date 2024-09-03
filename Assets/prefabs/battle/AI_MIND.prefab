@@ -115,7 +115,7 @@ MonoBehaviour:
   alive_tr: {fileID: 1155790254616476450}
   dead_tr: {fileID: 521896066685988294}
   balance:
-    speed: 3.5
+    speed: 3
     attack_distance: 1.5
     attack:
       duration: 1
@@ -132,10 +132,19 @@ MonoBehaviour:
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
+          time: 0.2985885
+          value: 0.8608475
+          inSlope: 1.1805065
+          outSlope: 1.1805065
+          tangentMode: 0
+          weightedMode: 0
+          inWeight: 0.33333334
+          outWeight: 0.33333334
+        - serializedVersion: 3
           time: 1
-          value: 1
-          inSlope: 2
-          outSlope: 2
+          value: 0
+          inSlope: 0
+          outSlope: 0
           tangentMode: 0
           weightedMode: 0
           inWeight: 0
@@ -143,6 +152,7 @@ MonoBehaviour:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
+      movement_mult: 6
       damage: 1
       hitEnemies: 0
       ticks: 3

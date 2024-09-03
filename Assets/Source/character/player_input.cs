@@ -15,7 +15,12 @@ public class player_input : MonoEditorDebug
     [SerializeField] private int player_index = 0;
     [SerializeField] private float speed = 5f;
 
+    [SerializeField] Attack fan_attack;
+
     CharacterController controller;
+    character _character;
+
+    Vector3 prevMovement = Vector3.zero;
 
     private Dictionary<KeyCode, EButton> keyButtonMap;
     private bool isActive = false;
@@ -43,14 +48,25 @@ public class player_input : MonoEditorDebug
         stick_input_y = player_index == 0 ? "joystick_1_y" : "joystick_2_y";
 
         controller = GetComponent<CharacterController>();
+        _character = GetComponent<character>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        float x_axis = Input.GetAxis(stick_input_x);
+        float y_axis = Input.GetAxis(stick_input_y);
+
+        float frame_movement = speed * Time.deltaTime;
+        Vector3 motion = new Vector3(x_axis, 0f, y_axis) * frame_movement;
 
         if (isActive)
         {
+            if (_character.IsMovementAllowed)
+            {
+                controller.Move(motion);
+            }
+
             HashSet<EButton> active_buttons = new HashSet<EButton>();
             foreach (var kvp in keyButtonMap)
                 if (Input.GetKeyDown(kvp.Key))
@@ -58,16 +74,16 @@ public class player_input : MonoEditorDebug
 
             if (active_buttons.Count > 0)
             {
-
+                if (active_buttons.Contains(EButton.A))
+                {
+                    if (motion == Vector3.zero)
+                        motion = prevMovement;
+                    _character.StartAttack(fan_attack, motion);
+                }
             }
-
-            float x_axis = Input.GetAxis(stick_input_x);
-            float y_axis = Input.GetAxis(stick_input_y);
-
-            float frame_movement = speed * Time.deltaTime;
-
-            controller.Move(new Vector3(x_axis,0f , y_axis) * frame_movement );
         }
+
+        prevMovement = motion;
     }
     void OnCountdown()
     {

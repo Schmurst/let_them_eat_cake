@@ -11,6 +11,7 @@ public class Attack
 {
     public float duration = 1f;
     public AnimationCurve curve;
+    public float movement_mult = 1.0f;
     public int damage = 1;
     public bool hitEnemies = true;
     public int ticks = 3;
@@ -93,7 +94,7 @@ public class character : MonoBehaviour
         float progress = stateTime / currentAttack.duration;
         float speed = currentAttack.curve.Evaluate(progress);
 
-        Vector3 move = attack_direction * Time.deltaTime * speed;
+        Vector3 move = attack_direction * Time.deltaTime * speed * currentAttack.movement_mult;
         controller.Move(move);
 
         //did we just tick?
@@ -132,9 +133,13 @@ public class character : MonoBehaviour
             }
         }
     }
-
     public void StartAttack(Attack _attack, Vector3 direction)
     {
+        if (!CanEnterState(CharState.attacking))
+            return ;
+
+        EnterState(CharState.attacking);
+
         currentAttack = _attack;
         chars_hit_by_attack.Clear();
         attack_direction = Vector3.Normalize(direction);

@@ -41,7 +41,7 @@ public class ai : MonoBehaviour
         //attack check
         if (dist_to_target < mind.balance.attack_distance)
         {
-            character.EnterState(CharState.attacking);
+            character.StartAttack(mind.balance.attack, to_target);
         }
     }
 
@@ -54,7 +54,7 @@ public class ai : MonoBehaviour
         //get closest 
         foreach (var p in players)
         {
-            float dist = Vector3.Distance(transform.position, our_pos);
+            float dist = Vector3.Distance(p.transform.position, our_pos);
             if (dist < dist_to_target)
             {
                 dist_to_target = dist;
@@ -74,8 +74,6 @@ public class ai : MonoBehaviour
                 break;
             case CharState.attacking:
             {
-                var target = GetClosestPlayer(out var dist_to_target, out Vector3 to_target);
-                character.StartAttack(mind.balance.attack, to_target );
                 break;
             }
             case CharState.recoiling:
