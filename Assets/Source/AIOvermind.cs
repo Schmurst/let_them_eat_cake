@@ -15,6 +15,10 @@ public class AIOvermind : MonoEditorDebug
     public class Balance
     {
         public float speed = 4f;
+        public float attack_dist = 1f;
+        public float attack_cooldown = 2f;
+        public float attack_duration = 0.5f;
+        public AnimationCurve attack_curve;
     }
 
     public Balance balance;
