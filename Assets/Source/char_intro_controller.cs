@@ -23,6 +23,10 @@ public class char_intro_controller : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Joystick1Button0))
             {
+                var source =  FindObjectOfType<AudioSource>();
+                if (source != null)
+                    Destroy(source.gameObject);
+
                 SceneManager.LoadScene(2);
             }
         }
@@ -31,6 +35,11 @@ public class char_intro_controller : MonoBehaviour
     IEnumerator Co_waitforseconds(float sdsd)
     {
         yield return new WaitForSeconds(sdsd);
+
+        var source = FindObjectOfType<AudioSource>();
+        if (source != null)
+            Destroy(source.gameObject);
+
         SceneManager.LoadScene(2);
     }
 }

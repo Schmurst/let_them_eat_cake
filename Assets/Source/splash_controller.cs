@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class splash_controller : MonoBehaviour
 {
     public jiggla_ui button;
+    public GameObject music;
     void Start()
     {
         button.vibration_timer = 1f;
@@ -16,6 +17,7 @@ public class splash_controller : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Joystick1Button0))
         {
+            DontDestroyOnLoad(music);
             SceneManager.LoadScene(1);
         }
 
