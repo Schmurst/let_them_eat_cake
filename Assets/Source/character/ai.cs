@@ -103,6 +103,10 @@ public class ai : MonoBehaviour
             }
         }
 
+        to_target = Vector3.zero;
+        if (target == null)
+            return null;
+
         to_target = target.transform.position - transform.position;
         return target;
     }
