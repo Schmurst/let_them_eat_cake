@@ -58,11 +58,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
-  m_Name: Rowdies-Bold SDF
+  m_Name: Rowdies-Bold SDF 1
   m_EditorClassIdentifier: 
-  hashCode: -321881080
+  hashCode: 1658823193
   material: {fileID: 239740948105191487}
-  materialHashCode: -1876727128
+  materialHashCode: 785251609
   m_Version: 1.1.0
   m_SourceFontFileGUID: 6dbea789ed92ce14585fd203789d76a2
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 6dbea789ed92ce14585fd203789d76a2, type: 3}
@@ -2816,5 +2816,5 @@ Material:
     - _ReflectFaceColor: {r: 0, g: 0, b: 0, a: 1}
     - _ReflectOutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
-    - _UnderlayColor: {r: 0.002428216, g: 0.015996292, b: 0.028426038, a: 0.8862745}
+    - _UnderlayColor: {r: 0.002428216, g: 0.015996292, b: 0.028426038, a: 0.28627452}
   m_BuildTextureStacks: []
