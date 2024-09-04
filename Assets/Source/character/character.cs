@@ -14,7 +14,8 @@ public class Attack
     public float movement_mult = 1.0f;
     public int damage = 1;
     public bool hitEnemies = true;
-    public int ticks = 3;
+    public int ticks = 1;
+    public float delay = 0.25f;
     public float arc_degrees = 120f;
     public float arc_radius = 2f;
 }
@@ -33,6 +34,7 @@ public class character : MonoEditorDebug
     [SerializeField] private float death_time = 1f;
 
     public event Action<CharState> OnStateChange;
+    public event Action<Vector3> OnMove;
 
     Vector3 attack_direction = Vector3.back;
 
@@ -44,6 +46,9 @@ public class character : MonoEditorDebug
 
     private List<character> chars_hit_by_attack = new List<character>();
 
+    private int attack_frames_done = 0;
+    private float attack_timer = 0f;
+    private float damage_countdown = 0f;
     [ExposeInInspector("HP:")] public int HP => hp;
     [ExposeInInspector("can move:")] public bool IsMovementAllowed => state == CharState.moving;
     [ExposeInInspector("state:")] public CharState State => state;
@@ -79,21 +84,31 @@ public class character : MonoEditorDebug
 
                 break;
             case CharState.dying:
-                if (stateTime > death_time)
-                {
-
-                }
                 break;
         }
+
+        damage_countdown -= Time.deltaTime;
+    }
+
+    public void Move(Vector3 velocity)
+    {
+        controller.Move(velocity);
+
+        if (OnMove != null)
+            OnMove(velocity);
     }
 
     void DoDamage(int damage)
     {
+        if (state == CharState.recoiling)
+            return;
+
+        if (damage_countdown > 0f)
+            return;
+
+        damage_countdown = 0.8f;
         hp -= damage;
-        if (hp <= 0)
-        {
-            EnterState(CharState.recoiling);
-        }
+        EnterState(CharState.recoiling);
     }
 
     void ProcessAttack()
@@ -110,46 +125,57 @@ public class character : MonoEditorDebug
         float speed = currentAttack.curve.Evaluate(progress);
 
         Vector3 move = attack_direction * Time.deltaTime * speed * currentAttack.movement_mult;
-        controller.Move(move);
+        Move(move);
 
         //did we just tick?
-        float tick_length = currentAttack.duration / currentAttack.ticks;
-        for (int i = 0; i < currentAttack.ticks; i++)
+        bool do_attack = false;
+        if (currentAttack.ticks > attack_frames_done)
         {
-            float threshold = tick_length * i;
-            float lower = threshold - Time.deltaTime;
-
-            if (stateTime > lower && stateTime <= threshold)
+            if (stateTime > attack_timer)
             {
-                var potentials = FindObjectsByType<character>(FindObjectsSortMode.None);
+                do_attack = true;
+                attack_timer += currentAttack.delay;
+                attack_frames_done++;
+            }
+        }
 
-                foreach (var target in potentials)
+        if (do_attack)
+        {
+            var potentials = FindObjectsByType<character>(FindObjectsSortMode.None);
+            foreach (var target in potentials)
+            {
+                if (target == this)
+                    continue;
+                if (chars_hit_by_attack.Contains(target))
+                    continue;
+                if (currentAttack.hitEnemies && target.GetComponent<ai>() == null)
+                    continue;
+                if (!currentAttack.hitEnemies && target.GetComponent<player_input>() == null)
+                    continue;
+
+                Vector3 to_target = target.transform.position - transform.position;
+                float dist = Vector3.Distance(target.transform.position, transform.position);
+
+                if (dist > currentAttack.arc_radius)
+                    continue;
+
+                float dot = Vector3.Dot(attack_direction, Vector3.Normalize(to_target));
+                if (dot > Mathf.Cos(Mathf.Deg2Rad * currentAttack.arc_degrees))
                 {
-                    if (target == this)
-                        continue;
-                    if (chars_hit_by_attack.Contains(target))
-                        continue;
-                    if (currentAttack.hitEnemies && target.GetComponent<ai>() == null)
-                        continue;
-                    if (!currentAttack.hitEnemies && target.GetComponent<player_input>() == null)
-                        continue;
-
-                    Vector3 to_target = target.transform.position - transform.position;
-                    float dist = Vector3.Distance(target.transform.position, transform.position);
-
-                    if (dist > currentAttack.arc_radius)
-                        continue;
-
-                    float dot = Vector3.Dot(attack_direction, Vector3.Normalize(to_target));
-                    if (dot > Mathf.Cos(Mathf.Deg2Rad * currentAttack.arc_degrees))
-                    {
-                        target.DoDamage(currentAttack.damage);
-                        chars_hit_by_attack.Add(target);
-                    }
+                    target.DoDamage(currentAttack.damage);
+                    chars_hit_by_attack.Add(target);
                 }
             }
         }
     }
+
+    void ResetAttack()
+    {
+        attack_frames_done = 0;
+        attack_timer = 0f;
+        currentAttack = null;
+    }
+
     public void StartAttack(Attack _attack, Vector3 direction)
     {
         if (!CanEnterState(CharState.attacking))
@@ -157,6 +183,8 @@ public class character : MonoEditorDebug
 
         EnterState(CharState.attacking);
 
+        attack_frames_done = 0;
+        attack_timer = _attack.delay;
         currentAttack = _attack;
         chars_hit_by_attack.Clear();
         attack_direction = Vector3.Normalize(direction);
@@ -167,8 +195,17 @@ public class character : MonoEditorDebug
         if (!CanEnterState(_state))
             return false;
 
+        //leave old one
+        switch (state)
+        {
+            case CharState.attacking:
+                ResetAttack();
+                break;
+        }
+
         stateTime = 0f;
         state = _state;
+
 
         if (OnStateChange != null)
             OnStateChange(state);
@@ -187,14 +224,14 @@ public class character : MonoEditorDebug
                 {
                     case CharState.moving: return true;
                     case CharState.attacking: return false;
-                    case CharState.recoiling: return false;
+                    case CharState.recoiling: return true;
                     case CharState.dying: return true;
                 }
                 break;
             case CharState.recoiling:
                 switch (_state)
                 {
-                    case CharState.moving: return false;
+                    case CharState.moving: return true;
                     case CharState.attacking: return false;
                     case CharState.recoiling: return false;
                     case CharState.dying: return true;

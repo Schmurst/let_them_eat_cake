@@ -101,6 +101,91 @@ MonoBehaviour:
   attack: {fileID: 21300000, guid: 4b17eebec72ae7b468210a313b1b1b2e, type: 3}
   recoil: {fileID: 21300000, guid: cce1da5b4c236f04c9c2d5a8c8bb3b05, type: 3}
   dead: {fileID: 21300000, guid: aa0100f894ccaaf4b9c0add2a1d4dd66, type: 3}
+  scale_x_curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.9717784
+      outSlope: -0.9717784
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.24512535
+      value: 0.7617925
+      inSlope: 0.08386356
+      outSlope: 0.08386356
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.7022187
+      value: 1.2826529
+      inSlope: 0.09515467
+      outSlope: 0.09515467
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -0.94919616
+      outSlope: -0.94919616
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  scale_y_curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 1.874025
+      outSlope: 1.874025
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.20891365
+      value: 1.3915094
+      inSlope: 0.27770692
+      outSlope: 0.27770692
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.74812865
+      value: 0.68049455
+      inSlope: -0.025042355
+      outSlope: -0.025042355
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1.2685264
+      outSlope: 1.2685264
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  scale_duration: 0.7
 --- !u!1 &7150600254089774053
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,8 +233,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 435c1f0b64b97ac4780218e87130562a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starting_hp: 3
-  recoil_time: 1
+  starting_hp: 5
+  recoil_time: 0.5
   death_time: 1
 --- !u!114 &6437778393073164538
 MonoBehaviour:
@@ -204,6 +289,7 @@ MonoBehaviour:
     damage: 1
     hitEnemies: 1
     ticks: 3
+    delay: 0
     arc_degrees: 120
     arc_radius: 4
 --- !u!143 &8237464246403377532

@@ -58,7 +58,7 @@ public class ai : MonoBehaviour
                     Vector3 velocity = movement_vec * speed * Time.deltaTime;
 
                     if (_character.IsMovementAllowed)
-                        controller.SimpleMove(velocity / Time.deltaTime);
+                        _character.Move(velocity);
 
                     //attack check
                     if (dist_to_target < mind.balance.attack_distance)

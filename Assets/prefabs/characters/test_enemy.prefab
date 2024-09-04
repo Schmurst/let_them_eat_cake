@@ -101,6 +101,91 @@ MonoBehaviour:
   attack: {fileID: 21300000, guid: 4b17eebec72ae7b468210a313b1b1b2e, type: 3}
   recoil: {fileID: 21300000, guid: cce1da5b4c236f04c9c2d5a8c8bb3b05, type: 3}
   dead: {fileID: 21300000, guid: aa0100f894ccaaf4b9c0add2a1d4dd66, type: 3}
+  scale_x_curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 1.1670704
+      outSlope: 1.1670704
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.20612812
+      value: 1.240566
+      inSlope: 0.1617639
+      outSlope: 0.1617639
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.79435253
+      value: 0.7443737
+      inSlope: 0.19974458
+      outSlope: 0.19974458
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1.2430317
+      outSlope: 1.2430317
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  scale_y_curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.5935614
+      outSlope: -0.5935614
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.270195
+      value: 0.8396227
+      inSlope: -0.006573528
+      outSlope: -0.006573528
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.70967567
+      value: 1.0947036
+      inSlope: 0.12710759
+      outSlope: 0.12710759
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: -0.32619917
+      outSlope: -0.32619917
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  scale_duration: 0.7
 --- !u!1 &7150600254089774053
 GameObject:
   m_ObjectHideFlags: 0

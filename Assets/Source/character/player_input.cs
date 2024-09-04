@@ -63,9 +63,7 @@ public class player_input : MonoEditorDebug
         if (isActive)
         {
             if (_character.IsMovementAllowed)
-            {
-                controller.Move(motion);
-            }
+                _character.Move(motion);
 
             HashSet<EButton> active_buttons = new HashSet<EButton>();
             foreach (var kvp in keyButtonMap)

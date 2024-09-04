@@ -583,9 +583,9 @@ MonoBehaviour:
       movement_mult: 6
       damage: 1
       hitEnemies: 0
-      ticks: 1
-      arc_degrees: 90
-      arc_radius: 2
+      delay: 0.25
+      arc_degrees: 60
+      arc_radius: 1.5
     death_time: 1
 --- !u!1 &5914141078656286588
 GameObject:

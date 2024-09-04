@@ -20,12 +20,16 @@ public class character_visual : MonoBehaviour
     private float vibrate_timer = 0f;
     private float scale_timer = 0f;
 
+    private bool going_left = true;
+
     void Start()
     {
         render = GetComponent<SpriteRenderer>();
         _character = GetComponentInParent<character>();
         _character.OnStateChange += OnStateChange;
         render.sprite = run;
+        scale_timer += UnityEngine.Random.value;
+        _character.OnMove += OnMove;
     }
 
     void Update()
@@ -37,29 +41,44 @@ public class character_visual : MonoBehaviour
         {
             float alpha = UnityEngine.Random.value;
             transform.localPosition = new Vector3(
-                vb_progress * Mathf.PerlinNoise1D(15f * (Time.time + UnityEngine.Random.value)),
-                vb_progress * Mathf.PerlinNoise1D(15f * (Time.time + UnityEngine.Random.value)),
+                vb_progress * Mathf.PerlinNoise1D(150f * (Time.time + UnityEngine.Random.value)),
+                vb_progress * Mathf.PerlinNoise1D(150f * (Time.time + UnityEngine.Random.value)),
                 0f
-            );
+            ) + Vector3.up;
         }
         else
         {
             vibrate_timer = 0f;
-            transform.localPosition = Vector3.zero;
+            transform.localPosition = Vector3.up;
         }
 
         switch (_character.State)
         {
             case CharState.moving:
             {
+                scale_timer += Time.deltaTime / scale_duration;
+                scale_timer %= 1f;
+
+                float x = scale_x_curve.Evaluate(scale_timer);
+                float y = scale_y_curve.Evaluate(scale_timer);
+
+                transform.localScale = new Vector3(x, y, 1f);
 
                 break;
             }
             case CharState.attacking:
             case CharState.recoiling:
             case CharState.dying:
+                transform.localScale = Vector3.one;
                 break;
         }
+
+        Vector3 scale = transform.localScale;
+        scale.x = (going_left ? 1f : -1f) * Mathf.Abs(scale.x);
+        transform.localScale = scale; }
+    void OnMove(Vector3 vel)
+    {
+        going_left = vel.x < 0f;
     }
 
     void OnStateChange(CharState state)
@@ -70,15 +89,14 @@ public class character_visual : MonoBehaviour
                 render.sprite = run;
                 break;
             case CharState.attacking:
-                vibrate_timer = 0.5f;
                 render.sprite = attack;
                 break;
             case CharState.recoiling:
-                vibrate_timer = 0.5f;
+                vibrate_timer = 1f;
                 render.sprite = recoil;
                 break;
             case CharState.dying:
-                vibrate_timer = 0.5f;
+                vibrate_timer = 1f;
                 render.sprite = dead;
                 break;
         }
