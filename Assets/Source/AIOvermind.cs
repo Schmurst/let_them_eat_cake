@@ -12,7 +12,7 @@ public class AIOvermind : MonoEditorDebug
     [SerializeField] private Transform alive_tr;
     [SerializeField] private Transform dead_tr;
 
-    public event Action<int> OnKill;
+    public event Action<int, int> OnKill;
     [Serializable] public class Spawn
     {
         public GameObject spawn_loc;
@@ -106,13 +106,13 @@ public class AIOvermind : MonoEditorDebug
             }
         }
     }
-    public void Kill(ai _ai)
+    public void Kill(ai _ai, int id)
     {
         alive_ai.Remove(_ai);
         Destroy(_ai.gameObject);
 
         if (OnKill != null)
-            OnKill(++total_kills);
+            OnKill(++total_kills, id);
     }
 
     void OnCountdown()

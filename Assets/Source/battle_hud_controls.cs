@@ -10,6 +10,8 @@ public class battle_hud_controls : MonoBehaviour
     [SerializeField] TextMeshProUGUI time;
     [SerializeField] TextMeshProUGUI wave;
     [SerializeField] TextMeshProUGUI kills;
+    [SerializeField] TextMeshProUGUI kills_p1;
+    [SerializeField] TextMeshProUGUI kills_p2;
     [SerializeField] Image p1_hp;
     [SerializeField] Image p2_hp;
 
@@ -19,6 +21,9 @@ public class battle_hud_controls : MonoBehaviour
     public character p1;
     public character p2;
     public AIOvermind aiii;
+
+    private int p1_ks = 0;
+    private int p2_ks = 0;
 
     void Start()
     {
@@ -31,6 +36,8 @@ public class battle_hud_controls : MonoBehaviour
 
         time.text = $"READY";
         kills.text = $"LET THEM EAT CAKE!";
+        kills_p1.text = $"Wallops: 0";
+        kills_p2.text = $"Thrashings: 0";
     }
 
     void Update()
@@ -41,8 +48,22 @@ public class battle_hud_controls : MonoBehaviour
         wave.text = $"Wave: {aiii.total_waves}";
     }
 
-    void OnKill(int killas)
+    void OnKill(int killas, int id)
     {
+
+        if (id == 0)
+        {
+            p1_ks++;
+            kills_p1.text = $"Wallops: {p1_ks}";
+            kills_p1.GetComponent<jiggla_ui>().vibration_timer = 1f;
+        }
+        else
+        {
+            p2_ks++;
+            kills_p2.text = $"Thrashings: {p2_ks}";
+            kills_p2.GetComponent<jiggla_ui>().vibration_timer = 1f;
+        }
+
         kills.text = $"{killas} Revolting Peasants Denied Cake";
         kills.GetComponent<jiggla_ui>().vibration_timer = 1f;
     }

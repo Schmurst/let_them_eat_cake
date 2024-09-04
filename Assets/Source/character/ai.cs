@@ -13,6 +13,8 @@ public class ai : MonoBehaviour
     private float deathTime = 0f;
     private float spawn_cooldown = 0.1f;
 
+    public int id_killa = -1;
+
     private float speed = 0f;
     void Start()
     {
@@ -79,7 +81,7 @@ public class ai : MonoBehaviour
                 deathTime += Time.deltaTime;
 
                 if (deathTime > mind.balance.death_time) 
-                    mind.Kill(this);
+                    mind.Kill(this, id_killa);
                 break;
         }
     }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 using UnityEngine.Animations;
 
@@ -28,7 +29,7 @@ public class player_input : MonoEditorDebug
     private string stick_input_y;
     [ExposeInInspector("Is active: ")] bool IsActive => isActive;
 
-
+    public int ID => player_index;
     void Start()
     {
         var flow = FindFirstObjectByType<battle_flow>();

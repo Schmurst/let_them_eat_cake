@@ -105,13 +105,19 @@ public class character : MonoEditorDebug
             OnMove(velocity);
     }
 
-    void DoDamage(int damage)
+    void DoDamage(int damage, int id)
     {
         if (state == CharState.recoiling)
             return;
 
         if (damage_countdown > 0f)
             return;
+
+        var aii = GetComponent<ai>();
+        if (aii != null)
+        {
+            aii.id_killa = id;
+        }
 
         damage_countdown = 0.8f;
         hp -= damage;
@@ -150,6 +156,8 @@ public class character : MonoEditorDebug
             }
         }
 
+        var player = GetComponent<player_input>();
+
         if (do_attack)
         {
             var potentials = FindObjectsByType<character>(FindObjectsSortMode.None);
@@ -173,7 +181,11 @@ public class character : MonoEditorDebug
                 float dot = Vector3.Dot(attack_direction, Vector3.Normalize(to_target));
                 if (dot > Mathf.Cos(Mathf.Deg2Rad * currentAttack.arc_degrees))
                 {
-                    target.DoDamage(currentAttack.damage);
+                    int id = -1;
+                    if (player)
+                        id = player.ID;
+
+                    target.DoDamage(currentAttack.damage, id);
                     chars_hit_by_attack.Add(target);
                 }
             }
