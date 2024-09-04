@@ -37,6 +37,7 @@ public class character : MonoEditorDebug
 
     public event Action<CharState> OnStateChange;
     public event Action<Vector3> OnMove;
+    public event Action<float> OnDamage;
 
     Vector3 attack_direction = Vector3.back;
 
@@ -112,8 +113,12 @@ public class character : MonoEditorDebug
         if (damage_countdown > 0f)
             return;
 
+
         damage_countdown = 0.8f;
         hp -= damage;
+        if (OnDamage != null)
+            OnDamage(hp/(float)starting_hp);
+
         EnterState(CharState.recoiling);
     }
 

@@ -172,7 +172,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7150600254089774053, guid: da51d20f34330ee4d8720585de5c0a6a, type: 3}
       propertyPath: m_Name
-      value: test_character
+      value: marie
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -411,6 +411,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2215298774092060773, guid: da51d20f34330ee4d8720585de5c0a6a, type: 3}
   m_PrefabInstance: {fileID: 57749747}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1072942224 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5939294717132062138, guid: da51d20f34330ee4d8720585de5c0a6a, type: 3}
+  m_PrefabInstance: {fileID: 57749747}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 435c1f0b64b97ac4780218e87130562a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1136148765
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -503,6 +514,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: battle_canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6699837551439505598, guid: 27654a778f61b0e4887e78b2ddd8ba7f, type: 3}
+      propertyPath: p1
+      value: 
+      objectReference: {fileID: 1072942224}
+    - target: {fileID: 6699837551439505598, guid: 27654a778f61b0e4887e78b2ddd8ba7f, type: 3}
+      propertyPath: p2
+      value: 
+      objectReference: {fileID: 1959632786}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -957,13 +976,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7150600254089774053, guid: da51d20f34330ee4d8720585de5c0a6a, type: 3}
       propertyPath: m_Name
-      value: test_character (1)
+      value: anne
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da51d20f34330ee4d8720585de5c0a6a, type: 3}
+--- !u!114 &1959632786 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5939294717132062138, guid: da51d20f34330ee4d8720585de5c0a6a, type: 3}
+  m_PrefabInstance: {fileID: 1839333760}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 435c1f0b64b97ac4780218e87130562a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4335709855639715926
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1068,14 +1098,6 @@ PrefabInstance:
     - target: {fileID: 2523284523485709084, guid: 8a372d2d89bb49f4ab42e9bd069a619c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4990954405425727147, guid: 8a372d2d89bb49f4ab42e9bd069a619c, type: 3}
-      propertyPath: balance.attack.cooldown
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4990954405425727147, guid: 8a372d2d89bb49f4ab42e9bd069a619c, type: 3}
-      propertyPath: waves.Array.data[0].duration
-      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 5878787578371853592, guid: 8a372d2d89bb49f4ab42e9bd069a619c, type: 3}
       propertyPath: m_Name
