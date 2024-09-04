@@ -21,9 +21,9 @@ public class jiggla_ui : MonoBehaviour
         float vb_progress = Mathf.Pow(vibration_timer, 4);
         if (vibration_timer >= 0f)
         {
-            rt.anchoredPosition = initial_ap + new Vector2(
-                vb_progress * Mathf.PerlinNoise1D(15f * (Time.time + UnityEngine.Random.value)),
-                vb_progress * Mathf.PerlinNoise1D(15f * (Time.time + UnityEngine.Random.value))
+            rt.anchoredPosition = initial_ap + 50f * new Vector2(
+                vb_progress * (2f* Mathf.PerlinNoise1D(10f * (Time.time + UnityEngine.Random.value)) -1f),
+                vb_progress * (2f * Mathf.PerlinNoise1D(10f * (Time.time + UnityEngine.Random.value)) - 1f)
             );
         }
         else

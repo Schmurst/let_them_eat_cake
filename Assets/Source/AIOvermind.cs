@@ -128,6 +128,8 @@ public class AIOvermind : MonoEditorDebug
     }
     private void StartWave()
     {
+        spawnTimes.Clear();
+
         Wave wv = waves[wave_idx];
         wave_time = 0f;
         foreach (var sp in wv.spawns)
