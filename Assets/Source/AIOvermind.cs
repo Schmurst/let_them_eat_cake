@@ -23,6 +23,8 @@ public class AIOvermind : MonoEditorDebug
     [Serializable] public class Wave
     {
         public List<Spawn> spawns;
+        public float duration;
+        public float speed_mult = 1f;
     }
     [Serializable] public class Balance
     {
@@ -46,6 +48,10 @@ public class AIOvermind : MonoEditorDebug
     List<RunTimeSpawn> spawnTimes = new List<RunTimeSpawn>();
 
     private bool isActive = false;
+
+    public Wave currentWave => waves[wave_idx];
+
+    private float wave_time = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -60,12 +66,21 @@ public class AIOvermind : MonoEditorDebug
     {
         if (isActive)
         {
+            var wave = waves[wave_idx];
+
+            wave_time += Time.deltaTime;
+            if (wave_time > wave.duration)
+            {
+                wave_idx = ++wave_idx % waves.Count;
+                StartWave();
+            }
+
             for (int i = 0; i < spawnTimes.Count; i++)
             {
                 spawnTimes[i].count_down -= Time.deltaTime;
                 if (spawnTimes[i].count_down < 0f)
                 {
-                    var wv = waves[wave_idx].spawns[i];
+                    var wv = wave.spawns[i];
                     for (int j = 0; j < spawnTimes[i].amount; j++)
                     {
                         int idx = j % wv.spawn_loc.transform.childCount;
@@ -94,7 +109,12 @@ public class AIOvermind : MonoEditorDebug
         isActive = true;
 
         //start waves
+        StartWave();
+    }
+    private void StartWave()
+    {
         Wave wv = waves[wave_idx];
+        wave_time = 0f;
         foreach (var sp in wv.spawns)
         {
             var jam = new RunTimeSpawn();

@@ -28,7 +28,10 @@ public class ai : MonoBehaviour
         _character.OnStateChange += OnStateChange;
 
         controller.enabled = false;
-        speed = (UnityEngine.Random.value * 2f - 1f) * 0.3f * mind.balance.speed + mind.balance.speed;
+
+        AIOvermind.Wave w = mind.currentWave;
+
+        speed = (UnityEngine.Random.value * 2f - 1f) * 0.3f * mind.balance.speed + mind.balance.speed * w.speed_mult;
 
         Vector3 v = transform.position;
         v.y = 1f;

@@ -18,6 +18,7 @@ public class Attack
     public float delay = 0.25f;
     public float arc_degrees = 120f;
     public float arc_radius = 2f;
+    public float cooldown = 0.5f;
 }
 public enum CharState
 {
@@ -49,6 +50,9 @@ public class character : MonoEditorDebug
     private int attack_frames_done = 0;
     private float attack_timer = 0f;
     private float damage_countdown = 0f;
+    private float attack_cooldown = 0f;
+
+
     [ExposeInInspector("HP:")] public int HP => hp;
     [ExposeInInspector("can move:")] public bool IsMovementAllowed => state == CharState.moving;
     [ExposeInInspector("state:")] public CharState State => state;
@@ -87,6 +91,7 @@ public class character : MonoEditorDebug
                 break;
         }
 
+        attack_cooldown -= Time.deltaTime;
         damage_countdown -= Time.deltaTime;
     }
 
@@ -116,6 +121,7 @@ public class character : MonoEditorDebug
         //end it
         if (stateTime > currentAttack.duration)
         {
+            attack_cooldown = currentAttack.cooldown;
             currentAttack = null;
             return;
         }
@@ -218,7 +224,14 @@ public class character : MonoEditorDebug
         switch (state)
         {
             case CharState.moving:
-                return true;
+                switch (_state)
+                {
+                    case CharState.moving: return true;
+                    case CharState.attacking: return attack_cooldown < 0f;
+                    case CharState.recoiling: return true;
+                    case CharState.dying: return true;
+                }
+                break;
             case CharState.attacking:
                 switch (_state)
                 {

@@ -292,6 +292,7 @@ MonoBehaviour:
     delay: 0
     arc_degrees: 120
     arc_radius: 4
+    cooldown: 0.25
 --- !u!143 &8237464246403377532
 CharacterController:
   m_ObjectHideFlags: 0
