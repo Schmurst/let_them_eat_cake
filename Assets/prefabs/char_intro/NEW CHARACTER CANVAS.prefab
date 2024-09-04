@@ -408,7 +408,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Other Character
+  m_text: 'Madame de Pompadour
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ab29ee436563d9f49874a77a312b5665, type: 2}
   m_sharedMaterial: {fileID: 239740948105191487, guid: ab29ee436563d9f49874a77a312b5665, type: 2}

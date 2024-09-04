@@ -406,8 +406,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -35, y: -37}
-  m_SizeDelta: {x: 345.6725, y: 63.6907}
+  m_AnchoredPosition: {x: -73.4, y: -37}
+  m_SizeDelta: {x: 472.76, y: 63.6907}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9185288780451837971
 CanvasRenderer:
@@ -437,7 +437,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Louis XVI
+  m_text: Madame de Pompadour
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ab29ee436563d9f49874a77a312b5665, type: 2}
   m_sharedMaterial: {fileID: 239740948105191487, guid: ab29ee436563d9f49874a77a312b5665, type: 2}
@@ -1235,7 +1235,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 46.4857, y: -36.999878}
+  m_AnchoredPosition: {x: 57.4, y: -36.999878}
   m_SizeDelta: {x: 374.7803, y: 63.6907}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3320935965312997193
