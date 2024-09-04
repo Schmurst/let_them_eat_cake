@@ -67,7 +67,11 @@ public class AIOvermind : MonoEditorDebug
                 {
                     var wv = waves[wave_idx].spawns[i];
                     for (int j = 0; j < spawnTimes[i].amount; j++)
-                        alive_ai.Add(SpawnAI(wv.spawn_loc.transform.position));
+                    {
+                        int idx = j % wv.spawn_loc.transform.childCount;
+                        Transform tr = wv.spawn_loc.transform.GetChild(idx);
+                        alive_ai.Add(SpawnAI(tr.position)); 
+                    }
 
                     spawnTimes[i].count_down = wv.wave_delay;
                     spawnTimes[i].amount = wv.wave_spawn;

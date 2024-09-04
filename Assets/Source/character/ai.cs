@@ -12,6 +12,8 @@ public class ai : MonoBehaviour
 
     private float deathTime = 0f;
     private float spawn_cooldown = 0.1f;
+
+    private float speed = 0f;
     void Start()
     {
         var flow = FindFirstObjectByType<battle_flow>();
@@ -26,6 +28,11 @@ public class ai : MonoBehaviour
         _character.OnStateChange += OnStateChange;
 
         controller.enabled = false;
+        speed = (UnityEngine.Random.value * 2f - 1f) * 0.3f * mind.balance.speed + mind.balance.speed;
+
+        Vector3 v = transform.position;
+        v.y = 1f;
+        transform.position = v;
     }
 
     void Update()
@@ -48,11 +55,10 @@ public class ai : MonoBehaviour
                 {
                     //calculate velocity
                     Vector3 movement_vec = Vector3.Normalize(to_target);
-
-                    Vector3 velocity = movement_vec * mind.balance.speed * Time.deltaTime;
+                    Vector3 velocity = movement_vec * speed * Time.deltaTime;
 
                     if (_character.IsMovementAllowed)
-                        controller.SimpleMove(velocity / Time.deltaTime);
+                        _character.Move(velocity);
 
                     //attack check
                     if (dist_to_target < mind.balance.attack_distance)
