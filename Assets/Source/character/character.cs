@@ -70,7 +70,12 @@ public class character : MonoEditorDebug
             case CharState.recoiling:
 
                 if (stateTime > recoil_time)
-                    EnterState(CharState.moving);
+                {
+                    if (hp > 0)
+                        EnterState(CharState.moving);
+                    else
+                        EnterState(CharState.dying);
+                }
 
                 break;
             case CharState.dying:
@@ -87,7 +92,7 @@ public class character : MonoEditorDebug
         hp -= damage;
         if (hp <= 0)
         {
-            EnterState(CharState.dying);
+            EnterState(CharState.recoiling);
         }
     }
 
