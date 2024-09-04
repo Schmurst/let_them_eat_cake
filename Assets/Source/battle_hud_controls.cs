@@ -28,6 +28,9 @@ public class battle_hud_controls : MonoBehaviour
         p1.OnDamage += OnP1HealthChange;
         p2.OnDamage += OnP2HealthChange;
         aiii.OnKill += OnKill;
+
+        time.text = $"READY";
+        kills.text = $"LET THEM EAT CAKE!";
     }
 
     void Update()
@@ -35,11 +38,13 @@ public class battle_hud_controls : MonoBehaviour
         int itime = Mathf.CeilToInt(aiii.WaveTime);
 
         time.text = $"{itime}s";
+        wave.text = $"Wave: {aiii.total_waves}";
     }
 
     void OnKill(int killas)
     {
-        kills.text = $"{killas} Stinking Peasants Denied Cake";
+        kills.text = $"{killas} Revolting Peasants Denied Cake";
+        kills.GetComponent<jiggla_ui>().vibration_timer = 1f;
     }
 
     void OnP1HealthChange(float pcnt)

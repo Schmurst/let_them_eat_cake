@@ -7,12 +7,14 @@ public class character_visual : MonoBehaviour
 {
     public Sprite run;
     public Sprite attack;
+    public Sprite attack_follow_up;
     public Sprite recoil;
     public Sprite dead;
 
     public AnimationCurve scale_x_curve;
     public AnimationCurve scale_y_curve;
     public float scale_duration = 0.7f;
+    public float wind_up_time = 0.25f;
 
     public bool flip = false;
 
@@ -69,6 +71,15 @@ public class character_visual : MonoBehaviour
                 break;
             }
             case CharState.attacking:
+            {
+                if (attack_follow_up != null)
+                {
+                    if (_character.StateTime > 0.2f)
+                        render.sprite = attack_follow_up;
+                }
+                transform.localScale = Vector3.one;
+                break;
+            }
             case CharState.recoiling:
             case CharState.dying:
                 transform.localScale = Vector3.one;

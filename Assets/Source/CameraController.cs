@@ -34,15 +34,22 @@ public class CameraController : MonoBehaviour
         character p1 = t1.GetComponent<character>();
         character p2 = t2.GetComponent<character>();
 
-        if (p1.State == CharState.dying)
-            midpoint = t2.position;
-        if(p2.State == CharState.dying)
-            midpoint = t1.position;
-
 
         // Distance between objects
         float distance = (t1.position - t2.position).magnitude;
         distance = Mathf.Max(distance, minZoom);
+
+        if (p1.State == CharState.dying)
+        {
+            midpoint = t2.position;
+            distance = minZoom;
+        }
+
+        if (p2.State == CharState.dying)
+        {
+            midpoint = t1.position;
+            distance = minZoom;
+        }
 
         // Move camera a certain distance
         Vector3 cameraDestination = midpoint - cam.transform.forward * distance * zoomFactor;

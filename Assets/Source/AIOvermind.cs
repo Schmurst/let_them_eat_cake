@@ -56,6 +56,7 @@ public class AIOvermind : MonoEditorDebug
 
     private List<ai> alive_ai = new List<ai>();
     int wave_idx = 0;
+    public int total_waves = 0;
     List<RunTimeSpawn> spawnTimes = new List<RunTimeSpawn>();
 
     private bool isActive = false;
@@ -137,6 +138,8 @@ public class AIOvermind : MonoEditorDebug
                 
             spawnTimes.Add(jam);
         }
+
+        total_waves++;
     }
 
     [EditorDebugMethod]

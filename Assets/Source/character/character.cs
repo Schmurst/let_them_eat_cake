@@ -54,7 +54,7 @@ public class character : MonoEditorDebug
     private float damage_countdown = 0f;
     private float attack_cooldown = 0f;
 
-
+    public float StateTime => stateTime;
     [ExposeInInspector("HP:")] public int HP => hp;
     [ExposeInInspector("can move:")] public bool IsMovementAllowed => state == CharState.moving;
     [ExposeInInspector("state:")] public CharState State => state;
