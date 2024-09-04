@@ -87,9 +87,14 @@ public class ai : MonoBehaviour
         player_input target = null;
         dist_to_target = float.MaxValue;
         Vector3 our_pos = transform.position;
+
         //get closest 
         foreach (var p in players)
         {
+            character c =  p.GetComponent<character>();
+            if (c.State == CharState.dying || c.State == CharState.recoiling)
+                continue;
+
             float dist = Vector3.Distance(p.transform.position, our_pos);
             if (dist < dist_to_target)
             {
