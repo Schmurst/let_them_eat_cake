@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
     public Camera cam;
     public float zoomFactor = 1.5f;
     public float followTimeDelta = 0.8f;
+    public float minZoom = 10f;
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +33,7 @@ public class CameraController : MonoBehaviour
 
         // Distance between objects
         float distance = (t1.position - t2.position).magnitude;
+        distance = Mathf.Max(distance, minZoom);
 
         // Move camera a certain distance
         Vector3 cameraDestination = midpoint - cam.transform.forward * distance * zoomFactor;
