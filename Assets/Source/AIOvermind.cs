@@ -40,6 +40,16 @@ public class AIOvermind : MonoEditorDebug
         public float count_down = 0f;
     }
 
+    [ExposeInInspector("wave id: ")] public int WaveIdx => wave_idx;
+    [ExposeInInspector("remaining wave time: ")] public float WaveTime
+    {
+        get
+        {
+            Wave w = currentWave;
+            return wave_time - w.duration;
+        }
+    }
+
     public List<Wave> waves; 
     public Balance balance;
 

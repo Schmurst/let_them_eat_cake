@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class battle_flow : MonoBehaviour
 {
@@ -40,6 +41,19 @@ public class battle_flow : MonoBehaviour
                 }
                 break;
             case Phase.battle:
+
+                bool all_dead = true;
+                var players = FindObjectsByType<player_input>(FindObjectsSortMode.None);
+                for (int i = 0; i < players.Length; i++)
+                {
+                    var _char = players[i].GetComponent<character>();
+                    if (_char.State != CharState.dying)
+                        all_dead = false;
+                }
+
+                if (all_dead)
+                    EnterState(Phase.defeat);
+
                 break;
             case Phase.waveEnd:
                 break;
@@ -63,6 +77,7 @@ public class battle_flow : MonoBehaviour
             case Phase.waveEnd:
                 break;
             case Phase.defeat:
+                SceneManager.LoadScene(0);
                 break;
         }
 

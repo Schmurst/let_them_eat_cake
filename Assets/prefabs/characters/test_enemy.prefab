@@ -236,6 +236,7 @@ MonoBehaviour:
   starting_hp: 1
   recoil_time: 1
   death_time: 1
+  blood_vfx_prefab: {fileID: 7391872374456892580, guid: 96fbedef08ca8d24ba4d95ccf3e00d22, type: 3}
 --- !u!143 &8237464246403377532
 CharacterController:
   m_ObjectHideFlags: 0

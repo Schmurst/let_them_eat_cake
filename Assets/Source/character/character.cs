@@ -33,6 +33,7 @@ public class character : MonoEditorDebug
     [SerializeField] private int starting_hp = 1;
     [SerializeField] private float recoil_time = 1f;
     [SerializeField] private float death_time = 1f;
+    [SerializeField] private GameObject blood_vfx_prefab;
 
     public event Action<CharState> OnStateChange;
     public event Action<Vector3> OnMove;
@@ -212,11 +213,31 @@ public class character : MonoEditorDebug
         stateTime = 0f;
         state = _state;
 
+        switch (_state)
+        {
+            case CharState.recoiling:
+            {
+                var go =Instantiate(blood_vfx_prefab, transform);
+                go.transform.position = transform.position;
+
+                StartCoroutine(Co_DoAfterSeconds(() =>
+                {
+                    Destroy(go);
+                },5f));
+                break;
+            }
+        }
 
         if (OnStateChange != null)
             OnStateChange(state);
 
         return true;
+    }
+
+    IEnumerator Co_DoAfterSeconds(Action action, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        action();
     }
 
     bool CanEnterState(CharState _state)
