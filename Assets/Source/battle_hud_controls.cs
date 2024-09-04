@@ -18,6 +18,7 @@ public class battle_hud_controls : MonoBehaviour
 
     public character p1;
     public character p2;
+    public AIOvermind aiii;
 
     void Start()
     {
@@ -26,8 +27,20 @@ public class battle_hud_controls : MonoBehaviour
 
         p1.OnDamage += OnP1HealthChange;
         p2.OnDamage += OnP2HealthChange;
+        aiii.OnKill += OnKill;
     }
 
+    void Update()
+    {
+        int itime = Mathf.CeilToInt(aiii.WaveTime);
+
+        time.text = $"{itime}s";
+    }
+
+    void OnKill(int killas)
+    {
+        kills.text = $"{killas} Stinking Peasants Denied Cake";
+    }
 
     void OnP1HealthChange(float pcnt)
     {

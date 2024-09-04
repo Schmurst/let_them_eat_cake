@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 9193cdf800464554489b44672b334e5f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6bb6a52a43e91e14f8298a48188820e7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -97,9 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39cd625eac0300540a00834795bf3c46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  run: {fileID: 21300000, guid: 9193cdf800464554489b44672b334e5f, type: 3}
-  attack: {fileID: 21300000, guid: 4b17eebec72ae7b468210a313b1b1b2e, type: 3}
-  recoil: {fileID: 21300000, guid: cce1da5b4c236f04c9c2d5a8c8bb3b05, type: 3}
+  run: {fileID: 21300000, guid: 6bb6a52a43e91e14f8298a48188820e7, type: 3}
+  attack: {fileID: 21300000, guid: cdf996fdbb7ed7a49a81b6bee5e437d0, type: 3}
+  recoil: {fileID: 21300000, guid: d426ab090babad847b11baed3ee690b1, type: 3}
   dead: {fileID: 21300000, guid: aa0100f894ccaaf4b9c0add2a1d4dd66, type: 3}
   scale_x_curve:
     serializedVersion: 2
@@ -186,6 +186,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   scale_duration: 0.7
+  flip: 1
 --- !u!1 &7150600254089774053
 GameObject:
   m_ObjectHideFlags: 0

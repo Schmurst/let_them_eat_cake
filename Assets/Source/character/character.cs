@@ -113,7 +113,6 @@ public class character : MonoEditorDebug
         if (damage_countdown > 0f)
             return;
 
-
         damage_countdown = 0.8f;
         hp -= damage;
         if (OnDamage != null)

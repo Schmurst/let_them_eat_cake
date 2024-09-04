@@ -12,6 +12,7 @@ public class AIOvermind : MonoEditorDebug
     [SerializeField] private Transform alive_tr;
     [SerializeField] private Transform dead_tr;
 
+    public event Action<int> OnKill;
     [Serializable] public class Spawn
     {
         public GameObject spawn_loc;
@@ -46,7 +47,7 @@ public class AIOvermind : MonoEditorDebug
         get
         {
             Wave w = currentWave;
-            return wave_time - w.duration;
+            return w.duration - wave_time;
         }
     }
 
@@ -58,7 +59,7 @@ public class AIOvermind : MonoEditorDebug
     List<RunTimeSpawn> spawnTimes = new List<RunTimeSpawn>();
 
     private bool isActive = false;
-
+    private int total_kills = 0;
     public Wave currentWave => waves[wave_idx];
 
     private float wave_time = 0;
@@ -108,6 +109,9 @@ public class AIOvermind : MonoEditorDebug
     {
         alive_ai.Remove(_ai);
         Destroy(_ai.gameObject);
+
+        if (OnKill != null)
+            OnKill(++total_kills);
     }
 
     void OnCountdown()

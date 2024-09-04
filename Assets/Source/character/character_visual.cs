@@ -14,6 +14,8 @@ public class character_visual : MonoBehaviour
     public AnimationCurve scale_y_curve;
     public float scale_duration = 0.7f;
 
+    public bool flip = false;
+
     private SpriteRenderer render;
     private character _character;
 
@@ -75,10 +77,14 @@ public class character_visual : MonoBehaviour
 
         Vector3 scale = transform.localScale;
         scale.x = (going_left ? 1f : -1f) * Mathf.Abs(scale.x);
-        transform.localScale = scale; }
+        transform.localScale = scale;
+    }
     void OnMove(Vector3 vel)
     {
         going_left = vel.x < 0f;
+
+        if (flip)
+            going_left = !going_left;
     }
 
     void OnStateChange(CharState state)
