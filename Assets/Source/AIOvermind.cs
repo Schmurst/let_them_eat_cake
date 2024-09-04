@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
@@ -65,7 +66,8 @@ public class AIOvermind : MonoEditorDebug
                 if (spawnTimes[i].count_down < 0f)
                 {
                     var wv = waves[wave_idx].spawns[i];
-                    alive_ai.Add(SpawnAI(wv.spawn_loc.transform.position));
+                    for (int j = 0; j < spawnTimes[i].amount; j++)
+                        alive_ai.Add(SpawnAI(wv.spawn_loc.transform.position));
 
                     spawnTimes[i].count_down = wv.wave_delay;
                     spawnTimes[i].amount = wv.wave_spawn;
