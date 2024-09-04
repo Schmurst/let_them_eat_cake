@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.SearchService;
@@ -7,7 +8,7 @@ using UnityEngine.UIElements;
 
 public class char_intro_controller : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private float time = 0f;
     void Start()
     {
         StartCoroutine(Co_waitforseconds(8));
@@ -16,7 +17,15 @@ public class char_intro_controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        time += Time.deltaTime;
+
+        if (time > 5f)
+        {
+            if (Input.GetKeyDown(KeyCode.Joystick1Button0))
+            {
+                SceneManager.LoadScene(2);
+            }
+        }
     }
 
     IEnumerator Co_waitforseconds(float sdsd)
